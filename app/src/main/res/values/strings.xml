@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Notes</string>
+    <string name="_1">1</string>
+    <string name="description">Description</string>
+    <string name="delete_all_notes">Delete all notes</string>
+    <string name="title">Title</string>
+    <string name="priority">Priority</string>
+    <string name="save">save</string>
+    <string name="pin_to_top">Pin to top</string>
+</resources>
