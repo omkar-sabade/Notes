@@ -48,6 +48,10 @@ class NoteRepository(application: Application) {
         return noteDAO.getAllNotes()
     }
 
+    fun getAllNotes(key:String): LiveData<List<Note>> {
+        return noteDAO.getAllNotes(key)
+    }
+
     fun deleteAllNotes() {
         DoAsync {
             noteDAO.deleteAllNotes()

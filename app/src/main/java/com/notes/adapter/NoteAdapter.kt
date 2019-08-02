@@ -3,6 +3,7 @@ package com.notes.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -39,6 +40,8 @@ class NoteAdapter : ListAdapter<Note, NoteAdapter.NoteHolder>(DIFF_CALLBACK) {
     operator fun get(adapterPosition: Int): Note = getItem(adapterPosition)
 
     inner class NoteHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        var params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT)
 
         init {
             itemView.setOnClickListener {

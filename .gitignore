@@ -11,3 +11,5 @@
 /androidTest
 /test
 .externalNativeBuild
+.idea/assetWizardSettings.xml
+.idea/encodings.xml

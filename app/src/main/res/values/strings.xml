@@ -7,4 +7,24 @@
     <string name="priority">Priority</string>
     <string name="save">save</string>
     <string name="pin_to_top">Pin to top</string>
+    <string name="source">Source</string>
+    <string name="search_for_a_word">Search for a title</string>
+    <string name="_0_results_found">notes found</string>
+    <string name="_0">0</string>
+    <string name="firebase_logo_and_name">Firebase logo and name</string>
+    <string name="notes">Notes</string>
+    <string name="signed_out">Signed out</string>
+    <string name="phone_number">Phone number</string>
+    <string name="verification_code">Verification code</string>
+    <string name="start">Start</string>
+    <string name="verify">Verify</string>
+    <string name="resend">Resend</string>
+    <string name="sign_out">Sign out</string>
+    <string name="status_code_sent">Code Sent</string>
+    <string name="status_verification_failed">Verification failed</string>
+    <string name="status_verification_succeeded">Verification succeeded</string>
+    <string name="instant_validation">(instant validation)</string>
+    <string name="signed_in">Signed In</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="status_sign_in_failed">Sign-in failed</string>
 </resources>

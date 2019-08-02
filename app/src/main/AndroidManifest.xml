@@ -1,26 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools" package="com.notes">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.notes">
 
     <application
             android:allowBackup="true"
+            android:appComponentFactory="whateverString"
+            android:extractNativeLibs="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
+            tools:ignore="GoogleAppIndexingWarning"
             tools:replace="android:appComponentFactory"
-            android:appComponentFactory="whateverString"
-            tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.MainActivity">
+            tools:targetApi="m">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.AddEditNoteActivity"
-                  android:parentActivityName=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity">
+        </activity>
+        <activity
+                android:name=".ui.AddEditNoteActivity"
+                android:parentActivityName=".ui.MainActivity">
         </activity>
     </application>
 

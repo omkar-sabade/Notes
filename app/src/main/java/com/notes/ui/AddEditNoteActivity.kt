@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.notes.LoginActivity
 import com.notes.R
 import com.notes.model.Note
 import kotlinx.android.synthetic.main.activity_add_edit_note.*
@@ -22,9 +23,10 @@ class AddEditNoteActivity : AppCompatActivity() {
         const val DESC = "DESC"
         const val PRIORITY = "PRIORITY"
         const val ISCHECKED = "ISCHECKED"
-
+        const val SRC = "SOURCE"
     }
 
+    private var notesCollection = MainActivity.firebaseFirestore.collection(LoginActivity.phoneNumber!!)
     private lateinit var addEditNoteViewModel: AddEditNoteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,14 +37,14 @@ class AddEditNoteActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
 
 
-        num_picker.minValue = 1
+        num_picker.minValue = 0
         num_picker.maxValue = 10
 
         addEditNoteViewModel = ViewModelProviders.of(this).get(AddEditNoteViewModel::class.java)
 
         addEditNoteViewModel.notes.observe(this, Observer {
             it?.forEach { note ->
-                Log.d("Add", note.title)
+                Log.d("Added", "${note.title} ${note.id} ${note.priority}")
             }
         })
 
@@ -52,6 +54,7 @@ class AddEditNoteActivity : AppCompatActivity() {
             description.setText(intent.getStringExtra(DESC))
             num_picker.value = intent.getIntExtra(PRIORITY, 3)
             pin_to_top.isChecked = intent.getBooleanExtra(ISCHECKED, false)
+            title_source.setText(intent.getStringExtra(SRC))
         }
     }
 
@@ -71,7 +74,7 @@ class AddEditNoteActivity : AppCompatActivity() {
 
     private fun saveNote() {
 
-        if (title_textview.text.isEmpty() || description.text.isEmpty()) {
+        if (title_textview.text.isEmpty() && description.text.isEmpty()) {
             Toast.makeText(
                 this@AddEditNoteActivity,
                 "Title and description cannot be empty",
@@ -87,6 +90,7 @@ class AddEditNoteActivity : AppCompatActivity() {
                     Note(
                         title = title_textview.text.toString(),
                         description = description.text.toString(),
+                        source = title_source.text.toString(),
                         priority = if (pin_to_top.isChecked) 10 else 0,
                         pinToTop = pin_to_top.isChecked
                     ).apply {
@@ -96,8 +100,9 @@ class AddEditNoteActivity : AppCompatActivity() {
             }
             else -> addEditNoteViewModel.insert(
                 Note(
-                    title = title_textview.text.toString(),
+                    title = title_textview.text.toString().capitalize(),
                     description = description.text.toString(),
+                    source = title_source.text.toString(),
                     priority = num_picker.value,
                     pinToTop = pin_to_top.isChecked
                 )

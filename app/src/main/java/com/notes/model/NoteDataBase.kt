@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-@Database(entities = [Note::class], version = 2, exportSchema = false)
+@Database(entities = [Note::class], version = 3, exportSchema = false)
 abstract class NoteDataBase : RoomDatabase() {
 
     companion object {
@@ -40,6 +40,7 @@ abstract class NoteDataBase : RoomDatabase() {
                             title = "first title",
                             description = "First note just trying",
                             priority = 1,
+                            source = "Some source",
                             pinToTop = false
                         )
                     )
@@ -48,6 +49,7 @@ abstract class NoteDataBase : RoomDatabase() {
                             title = "second title",
                             description = "second note just trying",
                             priority = 2,
+                            source = "Some source",
                             pinToTop = false
                         )
                     )
@@ -56,6 +58,7 @@ abstract class NoteDataBase : RoomDatabase() {
                             title = "third title",
                             description = "third note just trying",
                             priority = 3,
+                            source = "Some source",
                             pinToTop = false
                         )
                     )

@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 class Note(
     var title: String,
     var description: String,
+    var source: String,
     var priority: Int,
     var pinToTop: Boolean
 ) {
@@ -22,6 +23,7 @@ class Note(
     override fun hashCode(): Int {
         var result = title.hashCode()
         result = 31 * result + description.hashCode()
+        result = 31 * result + source.hashCode()
         result = 31 * result + priority
         result = 31 * result + pinToTop.hashCode()
         result = 31 * result + id

@@ -11,6 +11,9 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
     private var repository: NoteRepository = NoteRepository(application)
     var notes: LiveData<List<Note>> = repository.getAllNotes()
 
+    fun getAllNotes(key:String){
+        notes = repository.getAllNotes(key)
+    }
 
     fun delete(note: Note) {
         repository.delete(note)

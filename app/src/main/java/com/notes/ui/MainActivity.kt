@@ -2,6 +2,9 @@ package com.notes.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 import com.notes.R
 import com.notes.adapter.NoteAdapter
 import com.notes.model.Note
@@ -32,11 +36,9 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
-
-
-
         noteViewModel.notes.observe(this, Observer {
             adapter.submitList(it!!)
+            num_res.text = it.size.toString()
         })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(ItemTouchHelper.RIGHT)) {
@@ -58,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra(AddEditNoteActivity.DESC, note.description)
                 intent.putExtra(AddEditNoteActivity.TITLE, note.title)
                 intent.putExtra(AddEditNoteActivity.ISCHECKED, note.pinToTop)
+                intent.putExtra(AddEditNoteActivity.SRC, note.source)
                 startActivity(intent)
             }
         }
@@ -65,6 +68,24 @@ class MainActivity : AppCompatActivity() {
         add_note.setOnClickListener {
             startActivity(Intent(baseContext, AddEditNoteActivity::class.java))
         }
+
+        search_text.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d(TAG, s.toString())
+                noteViewModel.getAllNotes(s.toString())
+                noteViewModel.notes.observe(this@MainActivity, Observer {
+                    adapter.submitList(it!!)
+                    num_res.text = it.size.toString()
+                })
+            }
+
+        })
 
     }
 
@@ -83,6 +104,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+        val firebaseFirestore = FirebaseFirestore.getInstance()
         const val TAG = "MainActivity"
     }
 }
